@@ -7,11 +7,11 @@ class HttpClientTest < Test::Unit::TestCase
                Samuel.reset_config }
     teardown { teardown_test_logger }
 
-    context "to GET http://localhost:8000/, responding with a 200 in 53ms" do
+    context "to GET http://localhost:64888/, responding with a 200 in 53ms" do
       setup do
         now = Time.now
         Samuel::Diary.stubs(:current_time).returns(now, now + 0.053)
-        HTTPClient.get("http://localhost:8000/")
+        HTTPClient.get("http://localhost:64888/")
       end
 
       should_log_lines     1
@@ -19,26 +19,26 @@ class HttpClientTest < Test::Unit::TestCase
       should_log_including "HTTP request"
       should_log_including "(53ms)"
       should_log_including "[200 OK]"
-      should_log_including "GET http://localhost:8000/"
+      should_log_including "GET http://localhost:64888/"
     end
 
     context "using PUT" do
       setup do
-        HTTPClient.put("http://localhost:8000/books/1", "test=true")
+        HTTPClient.put("http://localhost:64888/books/1", "test=true")
       end
 
-      should_log_including "PUT http://localhost:8000/books/1"
+      should_log_including "PUT http://localhost:64888/books/1"
     end
 
     context "using an asynchronous POST" do
       setup do
         body = "title=Infinite%20Jest"
         client = HTTPClient.new
-        connection = client.post_async("http://localhost:8000/books", body)
+        connection = client.post_async("http://localhost:64888/books", body)
         sleep 0.1 until connection.finished?
       end
 
-      should_log_including "POST http://localhost:8000/books"
+      should_log_including "POST http://localhost:64888/books"
     end
 
     context "that raises" do
@@ -78,7 +78,7 @@ class HttpClientTest < Test::Unit::TestCase
 
     context "that responds with a 400-level code" do
       setup do
-        HTTPClient.get("http://localhost:8000/test?404")
+        HTTPClient.get("http://localhost:64888/test?404")
       end
 
       should_log_at_level :warn
@@ -87,7 +87,7 @@ class HttpClientTest < Test::Unit::TestCase
 
     context "that responds with a 500-level code" do
       setup do
-        HTTPClient.get("http://localhost:8000/test?500")
+        HTTPClient.get("http://localhost:64888/test?500")
       end
 
       should_log_at_level :warn

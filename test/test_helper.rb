@@ -78,7 +78,7 @@ class Test::Unit::TestCase
     return if defined?(@@server)
 
     @@server = WEBrick::HTTPServer.new(
-      :Port => 8000, :AccessLog => [],
+      :Port => 64888, :AccessLog => [],
       :Logger => WEBrick::Log.new(nil, WEBrick::BasicLog::WARN)
     )
     @@server.mount "/", ResponseCodeServer

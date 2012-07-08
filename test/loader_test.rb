@@ -20,7 +20,7 @@ class LoaderTest < Test::Unit::TestCase
       end
 
       should "successfully log a Net::HTTP request" do
-        output = capture_output "Net::HTTP.get(URI.parse('http://localhost:8000'))"
+        output = capture_output "Net::HTTP.get(URI.parse('http://localhost:64888'))"
         assert_match %r[HTTP request], output
       end
 
@@ -34,7 +34,7 @@ class LoaderTest < Test::Unit::TestCase
       setup { @requires.unshift('net/http') }
 
       should "successfully log a Net::HTTP request" do
-        output = capture_output "Net::HTTP.get(URI.parse('http://localhost:8000'))"
+        output = capture_output "Net::HTTP.get(URI.parse('http://localhost:64888'))"
         assert_match %r[HTTP request], output
       end
 
@@ -48,7 +48,7 @@ class LoaderTest < Test::Unit::TestCase
       setup { @requires.unshift('rubygems', 'httpclient') }
 
       should "successfully log an HTTPClient request" do
-        output = capture_output "HTTPClient.get('http://localhost:8000')"
+        output = capture_output "HTTPClient.get('http://localhost:64888')"
         assert_match %r[HTTP request], output
       end
 
